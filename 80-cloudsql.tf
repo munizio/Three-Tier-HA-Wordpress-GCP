@@ -1,6 +1,6 @@
 resource "google_sql_database_instance" "db-instance" {
   project           = var.project
-  name              = "${var.project}-db-instance"
+  name              = "${var.project}-db-instance-wtf"
   database_version  = "MYSQL_5_7" 
   region            = var.region
   

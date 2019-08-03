@@ -25,9 +25,16 @@ resource "google_compute_instance_template" "web" {
   }
 
   network_interface {
-    subnetwork = "${google_compute_subnetwork.private.name}"
+    network     = "${google_compute_network.private.name}"
+    subnetwork  = "${google_compute_subnetwork.private.name}"
   }
-  
-  metadata_startup_script = "echo 'Hello, World' > index.html ; nohup busybox httpd -f -p 80 &"
+
+  provisioner "remote-exec" {
+    inline = [
+      "sudo apt-get install -y ansible curl"
+      "sudo curl -LO https://url.site"
+      "sudo ansible-playbook playbook.yml"
+    ]
+  }
 }
 
