@@ -31,8 +31,8 @@ resource "google_compute_instance_template" "web" {
 
   provisioner "remote-exec" {
     inline = [
-      "sudo apt-get install -y ansible curl"
-      "sudo curl -LO https://url.site"
+      "sudo apt-get install -y ansible curl",
+      "sudo curl -LO https://raw.githubusercontent.com/munizio/Three-Tier-HA-Wordpress-GCP/master/playbook.yml",
       "sudo ansible-playbook playbook.yml"
     ]
   }
