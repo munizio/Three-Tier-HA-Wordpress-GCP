@@ -16,7 +16,7 @@ resource "google_compute_instance" "bastion" {
 
   network_interface {
     network     = "${google_compute_network.private.name}"
-    subnetwork  = "${google_compute_subnetwork.mgmt.name}"
+    subnetwork  = "${google_compute_subnetwork.dmz.name}"
 
     access_config {
       # Ephemeral IP

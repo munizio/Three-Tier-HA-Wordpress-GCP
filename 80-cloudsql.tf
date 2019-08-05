@@ -32,4 +32,3 @@ resource "google_sql_user" "db-user" {
   depends_on  = ["google_sql_database_instance.db-instance"]
 }
 
-
