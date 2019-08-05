@@ -3,33 +3,17 @@ terraform {
 }
 
 # ------------------------------------------------------------ 
-# Create Internal FW
-# ------------------------------------------------------------ 
-
-resource "google_compute_firewall" "private" {
-  name    = "${var.project}-pri-fi"
-  network = "default"
-
-  source_ranges = ["0.0.0.0/0"]
-
-  allow {
-    protocol  = "tcp"
-    ports     = ["80"]
-  }
-}
-
-# ------------------------------------------------------------ 
 # Create Internal Network
 # ------------------------------------------------------------ 
 
 resource "google_compute_network" "private" {
   project                 = var.project
-  name                    = "${var.project}-pri-net"
+  name                    = "${var.project}-net"
   auto_create_subnetworks = false
 }
 
 resource "google_compute_subnetwork" "private" {
-  name          = "${var.project}-subnet"
+  name          = "${var.project}-pri-subnet"
   ip_cidr_range = "10.13.0.0/20"
   network       = "${google_compute_network.private.self_link}"
   region        = var.region

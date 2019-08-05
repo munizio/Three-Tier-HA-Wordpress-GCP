@@ -21,3 +21,11 @@ variable "db-username" {
 variable "db-password" {
   default = "wonderful-relish-Bouncing-9204"
 }
+
+variable "ssh-username" {
+  default = "n388mm"
+}
+
+variable "ssh-key" {
+  default = "./.ssh/pub_gcloud.pub"
+}

@@ -1,0 +1,7 @@
+plugin: gcp_compute
+projects:
+  - rlt-hackathon-248519
+groups:
+  web: "'-web-' in name"
+auth_kind: serviceaccount
+service_account_file: ./gcp-account.json

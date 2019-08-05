@@ -18,7 +18,7 @@ resource "google_compute_instance_group_manager" "web" {
 }
 
 resource "google_compute_instance_template" "web" {
-  machine_type = "f1-micro"
+  machine_type = "n1-standard-1"
 
   disk {
     source_image = "ubuntu-1804-lts"
@@ -29,12 +29,13 @@ resource "google_compute_instance_template" "web" {
     subnetwork  = "${google_compute_subnetwork.private.name}"
   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "sudo apt-get install -y ansible curl",
-      "sudo curl -LO https://raw.githubusercontent.com/munizio/Three-Tier-HA-Wordpress-GCP/master/playbook.yml",
-      "sudo ansible-playbook playbook.yml"
-    ]
+  metadata = {
+    block-project-ssh-keys = false
   }
+  
+  metadata_startup_script = "sudo apt-get install aptitude -y"
+  
+  tags = ["web"]
+
 }
 
