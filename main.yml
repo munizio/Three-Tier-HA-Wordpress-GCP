@@ -1,0 +1,6 @@
+---
+  - hosts: web
+    sudo: True
+    gather_facts: True
+    roles:
+      - wordpress

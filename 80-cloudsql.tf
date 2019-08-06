@@ -18,7 +18,7 @@ resource "google_sql_database_instance" "db-instance" {
 }
 
 resource "google_sql_database" "db" {
-  name        = "${var.project}-db"
+  name        = "${var.project}-wp-db"
   project     = var.project
   instance    = "${google_sql_database_instance.db-instance.name}"
   depends_on  = ["google_sql_database_instance.db-instance"]

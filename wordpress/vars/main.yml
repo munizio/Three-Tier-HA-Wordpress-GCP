@@ -1,0 +1,11 @@
+---
+  wp_dir: /var/www
+  wp_url: http://wordpress.org/latest.tar.gz
+  wp_hostname: wp.muniz.io
+  wp_db_name: wordpress
+  wp_db_username: wp-db-user
+  wp_db_password: REDACTED
+  wp_db_host: 10.132.0.3
+  wp_table_prefix: 'wpzcx_'
+  wp_debug_mode: 'FALSE'
+

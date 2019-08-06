@@ -1,0 +1,114 @@
+---
+  - name: Update Repos
+    apt:
+      update_cache: yes
+  
+  - name: Upgrade Server
+    apt:
+      upgrade: safe
+
+  - name: Install apache2
+    apt:
+      name: apache2
+      state: present
+
+  - name: Enable mod rewrite
+    apache2_module:
+      state: present
+      name: rewrite
+   
+  - name: enable the use of .htaccess
+    template:
+      src: enable_htaccess.conf.j2
+      dest: /etc/apache2/sites-available/enable_htaccess.conf
+   
+  - name: enable the .htaccess config
+    file:
+      src: /etc/apache2/sites-available/enable_htaccess.conf
+      dest: /etc/apache2/sites-enabled/enable_htaccess.conf
+      state: link
+ 
+  - name: Install php packages
+    apt:
+      name: ['php', 'php-mysql', 'php-common', 'php-mysql', 'php-tidy', 'php-xml', 'php-xmlrpc', 'php-mbstring', 'php-memcached', 'php-curl', 'php-zip']
+      state: present
+
+  - name: install mysql packages
+    apt:
+      name: ['mysql-client', 'mysql-common']
+      state: present
+
+  - name: install other dependencies
+    apt:
+      name: ['curl', 'git']
+      state: present
+
+  - name: create path var
+    set_fact:
+      path: "{{ wp_dir }}/wordpress"
+  
+  - name: check for existing wordpress install
+    stat:
+      path: "{{ path }}/index.php"
+    register: wp
+
+  - name: create install directory
+    file: 
+      path: "{{ path }}" 
+      state: directory
+    when: wp.stat.exists == False
+
+  - name: Download the latest WordPress Zip
+    get_url:
+      url: "{{ wp_url }}"
+      dest: "/tmp/latest.tar.gz"
+    when: wp.stat.exists == False
+
+  - name: Unzip
+    unarchive:
+      src: "/tmp/latest.tar.gz"
+      dest: "{{ wp_dir }}"
+      copy: no
+    when: wp.stat.exists == False
+
+  - name: remove zip
+    file:
+      path: "/tmp/latest.tar.gz"
+      state: absent
+    when: wp.stat.exists == False
+
+  - name: Fetch random salts for WordPress config
+    local_action: command curl https://api.wordpress.org/secret-key/1.1/salt/
+    register: "wp_salt"
+    become: no
+    become_method: sudo
+
+  - name: copy wordpress config file
+    template:
+      src: wp-config.php.j2
+      dest: "{{ path }}/wp-config.php"
+
+  - name: Adjust Permissions
+    file:
+      path: "{{ wp_dir }}/wordpress"
+      state: directory
+      owner: www-data
+      group: www-data
+      recurse: yes
+
+  - name: Copy Virtual Host File
+    template: 
+      src: apache-vhost.conf.j2 
+      dest: "/etc/apache2/sites-available/{{ wp_hostname }}.conf" 
+      owner: root 
+      group: root 
+      mode: 0644
+
+  - name: Symlink virtual host configuration file
+    file: 
+      state: link 
+      src: "/etc/apache2/sites-available/{{ wp_hostname }}.conf" 
+      dest: "/etc/apache2/sites-enabled/{{ wp_hostname }}.conf" 
+      owner: root 
+      group: root 
+      mode: 0644
