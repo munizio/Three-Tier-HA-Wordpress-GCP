@@ -5,6 +5,6 @@
   wp_hostname: wp.muniz.io
   wp_db_name: wordpress
   wp_db_user: wp-db-user
-  wp_db_password: wonderful-relish-Bouncing-9204
+  wp_db_password: REDACTED
   wp_db_host: 10.11.0.3
 

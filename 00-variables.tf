@@ -27,7 +27,7 @@ variable "db_username" {
 }
 
 variable "db_password" {
-  default = "wonderful-relish-Bouncing-9204"
+  default = "REDACTED"
 }
 
 variable "db_version" {
