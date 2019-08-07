@@ -1,3 +1,11 @@
+terraform {
+  required_version = ">= 0.12"
+}
+
+# -------------------------------------------------- 
+# Initialize Google Cloud SQL 
+# -------------------------------------------------- 
+
 resource "google_sql_database_instance" "db-instance" {
   project           = var.project
   name              = "${var.project}-db-instance-${random_id.db-id.hex}"

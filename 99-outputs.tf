@@ -1,3 +1,11 @@
+terraform {
+  required_version = ">= 0.12"
+}
+
+# ------------------------------------------------------------ 
+# Declare Terraform Output Values
+# ------------------------------------------------------------ 
+
 output "lb_address" {
   value = "${google_compute_address.public.address}"
 }

@@ -1,3 +1,11 @@
+terraform {
+  required_version = ">= 0.12"
+}
+
+# ------------------------------------------------------------ 
+# Create Single Compute Instance as SSH Bastion Host
+# ------------------------------------------------------------ 
+  
 resource "google_compute_instance" "bastion" {
   name          = "${var.project}-bastion-vm"
   project       = var.project

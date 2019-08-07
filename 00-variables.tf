@@ -1,3 +1,11 @@
+terraform {
+  required_version = ">= 0.12"
+}
+
+# ------------------------------------------------------------ 
+# Declaire Project Wide Variables
+# ------------------------------------------------------------ 
+
 variable "account" {
   default = "./gcp-account.json"
 }

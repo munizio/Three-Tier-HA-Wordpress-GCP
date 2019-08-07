@@ -1,5 +1,6 @@
 ---
-  wp_dir: /var/www
+  www_dir: /var/www
+  wp_dir: "{{ www_dir }}/wordpress"
   wp_url: http://wordpress.org/latest.tar.gz
   wp_hostname: wp.muniz.io
   wp_db_name: wordpress

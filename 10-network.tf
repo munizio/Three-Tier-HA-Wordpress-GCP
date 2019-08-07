@@ -41,7 +41,7 @@ resource "google_compute_firewall" "pub-ssh-bastion" {
 }
 
 # ------------------------------------------------------------ 
-# Create Forwarding Rule, Pool, and Health Check
+# Create Forwarding Rule, Target Pool, and Health Check
 # ------------------------------------------------------------ 
 
 resource "google_compute_forwarding_rule" "public" {
@@ -82,6 +82,10 @@ resource "google_compute_subnetwork" "private" {
   network       = "${google_compute_network.private.self_link}"
   region        = var.region
 }
+
+# ------------------------------------------------------------ 
+# Create DMZ Network for SSH Bastion Host
+# ------------------------------------------------------------ 
 
 resource "google_compute_subnetwork" "dmz" {
   name          = "${var.project}-dmz-subnet"
