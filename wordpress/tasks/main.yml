@@ -49,6 +49,7 @@
 
   - name: Copy Default Sample Config File
     command: "cp {{ wp_dir }}/wp-config-sample.php {{ wp_dir }}/wp-config.php" 
+    args:
       creates: "{{ wp_dir }}/wp-config.php"
     become: yes
 

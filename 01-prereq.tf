@@ -18,6 +18,6 @@ resource "random_id" "db-id" {
 
 resource "google_compute_project_metadata" "ssh" {
   metadata = {
-    ssh-keys = "${var.ssh-username}:${file(var.ssh-key)}"
+    ssh-keys = "${var.ssh_username}:${file(var.ssh_key)}"
   }
 }

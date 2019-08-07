@@ -22,18 +22,22 @@ variable "zone" {
   default = "us-central1-a"
 }
 
-variable "db-username" {
+variable "db_username" {
   default = "wp-db-user"
 }
 
-variable "db-password" {
+variable "db_password" {
   default = "wonderful-relish-Bouncing-9204"
 }
 
-variable "ssh-username" {
+variable "db_version" {
+  default = "MYSQL_5_7"
+}
+
+variable "ssh_username" {
   default = "n388mm"
 }
 
-variable "ssh-key" {
+variable "ssh_key" {
   default = "./.ssh/pub_gcloud.pub"
 }
