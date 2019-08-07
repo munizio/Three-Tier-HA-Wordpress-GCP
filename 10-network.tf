@@ -61,8 +61,9 @@ resource "google_compute_http_health_check" "public" {
 }
 
 resource "google_compute_target_pool" "public" {
-  name          = "${var.project}-pool"
-  health_checks = ["${google_compute_http_health_check.public.name}"]
+  name              = "${var.project}-pool"
+  health_checks     = ["${google_compute_http_health_check.public.name}"]
+  session_affinity  = "CLIENT_IP"
 }
 
 # ------------------------------------------------------------ 
