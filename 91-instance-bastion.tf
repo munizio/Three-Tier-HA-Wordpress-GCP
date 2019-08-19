@@ -32,7 +32,16 @@ resource "google_compute_instance" "bastion" {
   }
 
   tags = ["bastion"]
-}
-
  
-    
+  # ------------------------------------------------------------ 
+  # Automate Running of Ansible-Playbook 
+  # ------------------------------------------------------------ 
+
+  provisioner "local-exec" {
+      command = "sleep 60"
+  }
+
+  provisioner "local-exec" {
+    command = "ansible-playbook main.yml -i inventory.gcp.yml --extra-vars \"wp_db_host=${google_sql_database_instance.db-instance.private_ip_address} wp_db_user=${var.db_username} wp_db_password=${var.db_password}\""
+  }
+}

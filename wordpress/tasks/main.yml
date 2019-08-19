@@ -94,6 +94,13 @@
       block: "{{ salts_content['content'] | b64decode }}"
       insertafter: "EOF"
 
+  - name: Enable WordPress MultiSite to wp-config.php
+    blockinfile:
+      path: "{{ wp_dir }}/wp-config.php}"
+      marker: "# {mark} ANSIBLE MANAGED BLOCK: MultiSite Flag"
+      block: |
+        define( 'WP_ALLOW_MULTISITE', true );
+
   - name: Add Required Footer to wp-config.php
     blockinfile:
       path: "{{ wp_dir }}/wp-config.php"

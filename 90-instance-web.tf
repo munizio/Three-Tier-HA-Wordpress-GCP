@@ -18,7 +18,7 @@ resource "google_compute_instance_group_manager" "web" {
 }
 
 resource "google_compute_instance_template" "web" {
-  machine_type = "n1-standard-1"
+  machine_type = "f1-micro"
 
   disk {
     source_image = "ubuntu-1804-lts"
@@ -34,6 +34,4 @@ resource "google_compute_instance_template" "web" {
   }
   
   tags = ["web"]
-
 }
-
